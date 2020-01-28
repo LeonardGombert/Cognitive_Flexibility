@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +9,8 @@ public class ObjectGenerator : MonoBehaviour
     [SerializeField] GameObject objectPrefab;
     [SerializeField] int numberToSpawn;
     int onStartSpawn;
+
+    Vector2 spawnPosition;
 
     void Start()
     {
@@ -26,7 +27,8 @@ public class ObjectGenerator : MonoBehaviour
     {
         for (onStartSpawn = 0; onStartSpawn < numberToSpawn; onStartSpawn++)
         {
-            Instantiate(objectPrefab, gameObject.transform);
+            spawnPosition = new Vector2(Random.Range(-8, 8), Random.Range(-5, 5));
+            Instantiate(objectPrefab, spawnPosition, Quaternion.identity, gameObject.transform);
         }
     }
 }
