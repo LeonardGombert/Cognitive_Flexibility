@@ -5,6 +5,8 @@ using UnityEngine;
 
 public class MouseBehavior : MonoBehaviour
 {
+    GameObject target;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -15,20 +17,29 @@ public class MouseBehavior : MonoBehaviour
     void Update()
     {
         MouseClick();
+        MoveTarget();
+    }
+
+    private void MoveTarget()
+    {
+        target.transform.position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 
+            Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
     }
 
     private void MouseClick()
     {
-        if(Input.GetMouseButton(0))
+        if(Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
             if (hit.collider.tag == "Object")
             {
-                Debug.Log("Target Position: " + hit.collider.gameObject.transform.position);
+                target = hit.collider.gameObject;
             }
 
             if (hit.collider == null) print("nothing here");
         }
+
+        if (Input.GetMouseButtonUp(0)) target = null;
     }
 }

@@ -13,13 +13,13 @@ public class ObjectGenerator : MonoBehaviour
 
     void Start()
     {
-
+        SpawnObjects();
     }
 
     // Update is called once per frame
     void Update()
     {
-        SpawnObjects();
+
     }
 
     private void SpawnObjects()
