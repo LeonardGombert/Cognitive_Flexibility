@@ -21,15 +21,18 @@ public class MouseBehavior : MonoBehaviour
 
     private void MoveTarget()
     {
-        target.transform.position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x, 
-            Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+        if(target != null)
+        {
+            target.transform.position = new Vector2(Camera.main.ScreenToWorldPoint(Input.mousePosition).x,
+                Camera.main.ScreenToWorldPoint(Input.mousePosition).y);
+        }
     }
 
     private void MouseClick()
     {
         if(Input.GetMouseButtonDown(0))
         {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);//, Mathf.Infinity, );
 
             if (hit.collider.tag == "Object")
             {

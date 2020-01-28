@@ -2,32 +2,80 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System;
+using UnityEngine.UI;
 
 public class Object : MonoBehaviour
 {
-    SpriteRenderer sr;
-    enum Color {red, green, blue}; enum Shape {square, circle}; enum Number {one, two, three}; enum Letters {a, b, c};
+    enum Type { color, shape, number, letter};
+    enum Color {Red, Green, Blue}; enum Shape {Square, Circle}; enum Number {One, Two, Three}; enum Letters {A, B, C};
 
+    [SerializeField] Type myType;
     [SerializeField] Color myColor;
     [SerializeField] Shape myShape;
     [SerializeField] Number myNumber;
-    [SerializeField] Letters myLetters;
+    [SerializeField] Letters myLetter;
+
+    SpriteRenderer sr;
+    [SerializeField] TextMesh valueText;
+    [SerializeField] List<Sprite> spriteShapes = new List<Sprite>();
 
     // Start is called before the first frame update
     void Awake()
     {
-        sr = GetComponent<SpriteRenderer>();
-        myColor = (Color)Random.Range(0, 3);
-        myShape = (Shape)Random.Range(0, 2);
-        myNumber = (Number)Random.Range(0, 3);
-        myLetters = (Letters)Random.Range(0, 3);
-
-        gameObject.name = myColor.ToString() + " " + myShape.ToString();
+        Setup();
     }
 
     // Update is called once per frame
     void Update()
     {
 
+    }
+
+    private void Setup()
+    {
+        sr = GetComponent<SpriteRenderer>();
+
+        //valueText = GetComponentInChildren<TextMesh>();
+        valueText.transform.localScale = transform.localScale.Inverse();
+
+        myType = (Type)UnityEngine.Random.Range(0, 4);
+
+        myColor = (Color)UnityEngine.Random.Range(0, 3);
+        gameObject.name = myColor.ToString();
+        if (gameObject.name.Contains("Green")) sr.color = UnityEngine.Color.green;
+        if (gameObject.name.Contains("Red")) sr.color = UnityEngine.Color.red;
+        if (gameObject.name.Contains("Blue")) sr.color = UnityEngine.Color.blue;
+
+        myShape = (Shape)UnityEngine.Random.Range(0, 2);
+        if (myShape == Shape.Circle) sr.sprite = spriteShapes[0];
+        if (myShape == Shape.Square) sr.sprite = spriteShapes[1];
+        gameObject.name = gameObject.name + " " + myShape.ToString();
+
+        valueText.text = null;
+
+        switch (myType)
+        {
+            case Type.number:
+                myNumber = (Number)UnityEngine.Random.Range(0, 3);
+                if(myNumber.ToString() == "One") valueText.text = "1";
+                if(myNumber.ToString() == "Two") valueText.text = "2";
+                if(myNumber.ToString() == "Three") valueText.text = "3";
+                gameObject.name = gameObject.name + " " + myNumber.ToString();
+                break;
+            case Type.letter:
+                myLetter = (Letters)UnityEngine.Random.Range(0, 3);
+                valueText.text = myLetter.ToString();
+                gameObject.name = gameObject.name + " " + myLetter.ToString() + "ee";
+                break;
+        }
+    }
+}
+
+public static class Vector3Extensions
+{
+    public static Vector3 Inverse(this Vector3 v)
+    {
+        return new Vector3(1f / v.x, 1f / v.y, 1f / v.z);
     }
 }
