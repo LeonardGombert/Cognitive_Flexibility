@@ -16,10 +16,18 @@ public class SentenceGenerator : MonoBehaviour
     [SerializeField] TextAsset typeText;
     [SerializeField] TextAsset colorText;
 
-    public enum currentAction { trier, nePasTrier, sortir, nePasSortir};
+    enum currentAction { trier, laisser, sortir, laisser2};
 
-    [ShowInInspector] public static currentAction firstSentence;
-    [ShowInInspector] public static currentAction secondSentence;
+    [SerializeField] currentAction firstSentence;
+    [SerializeField] currentAction secondSentence;
+
+    [SerializeField] GameObject objectGenerator;
+    [SerializeField] GameObject[] sortingBoxes;
+
+    private void Awake()
+    {
+
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -46,10 +54,7 @@ public class SentenceGenerator : MonoBehaviour
             type = typeLines[UnityEngine.Random.Range(0, 4)];
             color = colorLines[UnityEngine.Random.Range(0, 3)];
             sentence2 = string.Format("{0} {1} {2}.", action, type, color);
-
-            Debug.Log(sentence1);
-            Debug.Log(sentence2);
-
+            
             SentenceToGeneration(sentence1);
             SentenceToGeneration(sentence2);
             //GetComponent<TextMesh>().text = dialog;
@@ -58,7 +63,12 @@ public class SentenceGenerator : MonoBehaviour
 
     private void SentenceToGeneration(string sentenceToRead)
     {
+        objectGenerator.SendMessage("SentenceMessageReceiver", sentenceToRead);
 
+        foreach (GameObject sortingBox in sortingBoxes)
+        {
+            sortingBox.SendMessage("SentenceMessageReceiver", sentenceToRead);
+        }
     }
 
     private void ActionTypeCheck(int whichSentence)
@@ -70,13 +80,13 @@ public class SentenceGenerator : MonoBehaviour
                 case currentAction.trier:
                     action = actionLines[0];
                     break;
-                case currentAction.nePasTrier:
+                case currentAction.laisser:
                     action = actionLines[1];
                     break;
                 case currentAction.sortir:
                     action = actionLines[2];
                     break;
-                case currentAction.nePasSortir:
+                case currentAction.laisser2:
                     action = actionLines[3];
                     break;
             }
@@ -89,13 +99,13 @@ public class SentenceGenerator : MonoBehaviour
                 case currentAction.trier:
                     action = actionLines[0];
                     break;
-                case currentAction.nePasTrier:
+                case currentAction.laisser:
                     action = actionLines[1];
                     break;
                 case currentAction.sortir:
                     action = actionLines[2];
                     break;
-                case currentAction.nePasSortir:
+                case currentAction.laisser2:
                     action = actionLines[3];
                     break;
             }

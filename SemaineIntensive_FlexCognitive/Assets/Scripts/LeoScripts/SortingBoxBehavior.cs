@@ -26,6 +26,11 @@ public class SortingBoxBehavior : MonoBehaviour
         StateChecker(collision.gameObject);
     }
 
+    void SentenceMessageReceiver(string sentence)
+    {
+        Debug.Log("SORTING BOXES : " + sentence);
+    }
+
     private void StateChecker(GameObject collisionObject = null)
     {
         switch (myState)

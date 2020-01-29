@@ -1,4 +1,4 @@
 Trier
-Ne pas Trier
+Laisser
 Sortir
-Ne pas Sortir
+Laisser

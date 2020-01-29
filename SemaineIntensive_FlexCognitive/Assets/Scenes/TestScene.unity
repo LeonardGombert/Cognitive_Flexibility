@@ -121,6 +121,12 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &310646484 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4374346147724965180, guid: 3257865918f873a439ddbdefd6438f5f,
+    type: 3}
+  m_PrefabInstance: {fileID: 4374346148952911249}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &446612046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1457,6 +1463,12 @@ MonoBehaviour:
   colorText: {fileID: 4900000, guid: 0b8cc3fac4026e741b772f8a2720c16d, type: 3}
   firstSentence: 0
   secondSentence: 1
+  objectGenerator: {fileID: 310646484}
+  sortingBoxes:
+  - {fileID: 1255693527}
+  - {fileID: 1255193078}
+  - {fileID: 1045096531}
+  - {fileID: 1266298897}
 --- !u!4 &1390793732
 Transform:
   m_ObjectHideFlags: 0
