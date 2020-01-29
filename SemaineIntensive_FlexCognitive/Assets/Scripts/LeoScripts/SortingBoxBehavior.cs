@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SortingBoxBehavior : MonoBehaviour
 {
-    enum State { Color, Shape, Number, Letter }
+    enum State { Color, Shape, Shape1, Shape2, Number, Letter }
 
     [SerializeField] State myState;
 
@@ -39,6 +39,14 @@ public class SortingBoxBehavior : MonoBehaviour
             case State.Shape:
                 if (collisionObject.name.Contains("Square")) Debug.Log("I've hit Square");
                 else if (collisionObject.name.Contains("Circle")) Debug.Log("I've hit Circle");
+                else Debug.Log("Incompatible");
+                break;
+            case State.Shape1:
+                if (collisionObject.name.Contains("Square")) Debug.Log("I've hit Square");
+                else Debug.Log("Incompatible");
+                break;
+            case State.Shape2:
+                if (collisionObject.name.Contains("Circle")) Debug.Log("I've hit Circle");
                 else Debug.Log("Incompatible");
                 break;
             case State.Number:

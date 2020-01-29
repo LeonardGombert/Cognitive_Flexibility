@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Object : MonoBehaviour
 {
-    enum Type { color, shape, number, letter};
+    enum Type {color, shape, number, letter};
     enum Color {Red, Green, Blue}; enum Shape {Square, Circle}; enum Number {One, Two, Three}; enum Letters {A, B, C};
 
     [SerializeField] Type myType;
@@ -37,25 +37,37 @@ public class Object : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
 
         //valueText = GetComponentInChildren<TextMesh>();
-        valueText.transform.localScale = transform.localScale.Inverse();
+        //valueText.transform.localScale = transform.localScale.Inverse();
 
         myType = (Type)UnityEngine.Random.Range(0, 4);
 
         myColor = (Color)UnityEngine.Random.Range(0, 3);
         gameObject.name = myColor.ToString();
-        if (gameObject.name.Contains("Green")) sr.color = UnityEngine.Color.green;
-        if (gameObject.name.Contains("Red")) sr.color = UnityEngine.Color.red;
-        if (gameObject.name.Contains("Blue")) sr.color = UnityEngine.Color.blue;
-
-        myShape = (Shape)UnityEngine.Random.Range(0, 2);
-        if (myShape == Shape.Circle) sr.sprite = spriteShapes[0];
-        if (myShape == Shape.Square) sr.sprite = spriteShapes[1];
-        gameObject.name = gameObject.name + " " + myShape.ToString();
-
+        if (gameObject.name.Contains("Green"))
+        {
+            sr.color = UnityEngine.Color.green;
+            valueText.color = UnityEngine.Color.green;
+        }
+        if (gameObject.name.Contains("Red"))
+        {
+            sr.color = UnityEngine.Color.red;
+            valueText.color = UnityEngine.Color.red;
+        }
+        if (gameObject.name.Contains("Blue"))
+        {
+            sr.color = UnityEngine.Color.blue;
+            valueText.color = UnityEngine.Color.blue;
+        }
         valueText.text = null;
 
         switch (myType)
         {
+            case Type.shape:
+                myShape = (Shape)UnityEngine.Random.Range(0, 2);
+                if (myShape == Shape.Circle) sr.sprite = spriteShapes[0];
+                if (myShape == Shape.Square) sr.sprite = spriteShapes[1];
+                gameObject.name = gameObject.name + " " + myShape.ToString();
+                break;
             case Type.number:
                 myNumber = (Number)UnityEngine.Random.Range(0, 3);
                 if(myNumber.ToString() == "One") valueText.text = "1";

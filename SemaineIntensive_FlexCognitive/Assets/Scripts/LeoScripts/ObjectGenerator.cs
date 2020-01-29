@@ -7,6 +7,7 @@ public class ObjectGenerator : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField] GameObject objectPrefab;
+    [SerializeField] Transform whereToSpawn;
     [SerializeField] int numberToSpawn;
     int onStartSpawn;
 
@@ -27,7 +28,7 @@ public class ObjectGenerator : MonoBehaviour
     {
         for (onStartSpawn = 0; onStartSpawn < numberToSpawn; onStartSpawn++)
         {
-            spawnPosition = new Vector2(Random.Range(-8, 8), Random.Range(-5, 5));
+            spawnPosition = (Vector2)whereToSpawn.position + Random.insideUnitCircle * 5;//new Vector2(Random.Range(-8, 8), Random.Range(-5, 5));
             Instantiate(objectPrefab, spawnPosition, Quaternion.identity, gameObject.transform);
         }
     }
