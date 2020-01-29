@@ -32,6 +32,11 @@ public class Object : MonoBehaviour
 
     }
 
+    void InfoReceiver(string isRandom = null)
+    {
+
+    }
+
     private void Setup()
     {
         sr = GetComponent<SpriteRenderer>();

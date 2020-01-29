@@ -10,12 +10,14 @@ public class ObjectGenerator : MonoBehaviour
     [SerializeField] Transform whereToSpawn;
     [SerializeField] int numberToSpawn;
     int onStartSpawn;
+    Object objectClass;
 
     Vector2 spawnPosition;
 
     void Start()
     {
         SpawnObjects();
+        objectClass = objectPrefab.GetComponent<Object>();
     }
 
     // Update is called once per frame
@@ -29,7 +31,7 @@ public class ObjectGenerator : MonoBehaviour
         for (onStartSpawn = 0; onStartSpawn < numberToSpawn; onStartSpawn++)
         {
             spawnPosition = (Vector2)whereToSpawn.position + Random.insideUnitCircle * 5;//new Vector2(Random.Range(-8, 8), Random.Range(-5, 5));
-            Instantiate(objectPrefab, spawnPosition, Quaternion.identity, gameObject.transform);
+            GameObject objectToSpawn = Instantiate(objectPrefab, spawnPosition, Quaternion.identity, gameObject.transform);
         }
     }
 }
