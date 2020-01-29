@@ -23,15 +23,7 @@ public class ObjectGenerator : MonoBehaviour
     // Update is called once per frame
     void SentenceMessageReceiver(string sentence)
     {
-        Debug.Log("OBJECT GENERATOR : " + sentence);
 
-        switch (sentence)
-        {
-            case string a when a.Contains("Trier"): print("yeet");
-                break;
-            case string a when a.Contains("Laisser"): print("nwep");
-                break;
-        }
     }
 
     private void SpawnObjects()

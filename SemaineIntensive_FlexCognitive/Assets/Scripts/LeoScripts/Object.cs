@@ -78,12 +78,12 @@ public class Object : MonoBehaviour
                 if(myNumber.ToString() == "One") valueText.text = "1";
                 if(myNumber.ToString() == "Two") valueText.text = "2";
                 if(myNumber.ToString() == "Three") valueText.text = "3";
-                gameObject.name = gameObject.name + " " + myNumber.ToString();
+                gameObject.name = gameObject.name + " Number";
                 break;
             case Type.letter:
                 myLetter = (Letters)UnityEngine.Random.Range(0, 3);
                 valueText.text = myLetter.ToString();
-                gameObject.name = gameObject.name + " " + myLetter.ToString() + "ee";
+                gameObject.name = gameObject.name + " Letter" ;
                 break;
         }
     }

@@ -1,4 +1,4 @@
-carres
-cercles
-chiffres
-lettres
+Squares
+Circles
+Numbers
+Letters
