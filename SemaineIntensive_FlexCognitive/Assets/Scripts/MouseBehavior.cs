@@ -32,7 +32,7 @@ public class MouseBehavior : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
-            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);//, Mathf.Infinity, );
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
             if (hit.collider.tag == "Object")
             {
@@ -40,6 +40,16 @@ public class MouseBehavior : MonoBehaviour
             }
 
             if (!hit) return;
+        }
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
+
+            if (hit.collider.tag == "Object")
+            {
+                Destroy(hit.collider.gameObject);
+            }
         }
 
         if (Input.GetMouseButtonUp(0)) target = null;

@@ -53,6 +53,8 @@ public class SentenceGenerator : MonoBehaviour
             type = typeLines[UnityEngine.Random.Range(0, 4)];
             color = colorLines[UnityEngine.Random.Range(0, 3)];
             sentence2 = string.Format("{0} {1} {2}.", action, color, type);
+
+            SentenceDifferentiator();
             
             SentenceToGeneration(sentence1);
             SentenceToGeneration(sentence2);
@@ -60,6 +62,19 @@ public class SentenceGenerator : MonoBehaviour
             Debug.Log(sentence1);
             Debug.Log(sentence2);
             //GetComponent<TextMesh>().text = dialog;
+        }
+    }
+
+    private void SentenceDifferentiator()
+    {
+        if (sentence1.Replace("Trier", "") == sentence2.Replace("Laisser", ""))
+        {
+            while(sentence1.Replace("Trier", "") == sentence2.Replace("Laisser", ""))
+            {
+                type = typeLines[UnityEngine.Random.Range(0, 4)];
+                color = colorLines[UnityEngine.Random.Range(0, 3)];
+                sentence2 = string.Format("{0} {1} {2}.", action, color, type);
+            }
         }
     }
 

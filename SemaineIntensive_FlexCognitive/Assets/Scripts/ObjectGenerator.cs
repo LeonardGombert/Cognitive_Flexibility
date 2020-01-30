@@ -178,12 +178,12 @@ public class ObjectGenerator : MonoBehaviour
             objectToSpawn.SendMessage("SetObjectParameters", avoidObjectParameters);
         }
 
-        /*for (onStartSpawnRandoms = 0; onStartSpawnRandoms < numberOfRandomsToSpawn; onStartSpawnRandoms++)
+        for (onStartSpawnRandoms = 0; onStartSpawnRandoms < numberOfRandomsToSpawn; onStartSpawnRandoms++)
         {
             spawnPosition = (Vector2)whereToSpawn.position + UnityEngine.Random.insideUnitCircle * 5;//new Vector2(Random.Range(-8, 8), Random.Range(-5, 5));
             GameObject objectToSpawn = Instantiate(objectPrefab, spawnPosition, Quaternion.identity, gameObject.transform);
             objectToSpawn.SendMessage("SpawnWithRandomParams");
-        }*/
+        }
     }
 
     void Update()

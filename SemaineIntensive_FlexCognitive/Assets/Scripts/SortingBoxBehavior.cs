@@ -8,7 +8,7 @@ public class SortingBoxBehavior : MonoBehaviour
     enum State { Color, Shape, Shape1, Shape2, Number, Letter }
 
     [SerializeField] State myState;
-
+    [SerializeField] GameObject dataMiner;
     GameObject winSortingBox;
     GameObject wrongSortingBox;
     GameObject loseSortingBox;
@@ -36,11 +36,19 @@ public class SortingBoxBehavior : MonoBehaviour
     {
         //StateChecker(collision.gameObject);
 
-        if (gameObject == winSortingBox && collision.gameObject.name.Contains(targetColor) && collision.gameObject.name.Contains(targetType)) Debug.Log("You got it");
-        else if (gameObject == winSortingBox && !collision.gameObject.name.Contains(targetColor) || !collision.gameObject.name.Contains(targetType)) Debug.LogWarning("1st Degree Error");
-        else if (gameObject != winSortingBox && !collision.gameObject.name.Contains(targetColor) || !collision.gameObject.name.Contains(targetType)) Debug.LogWarning("2nd Degree Error");
-        if (collision.gameObject.name.Contains(losingType) && collision.gameObject.name.Contains(losingColor)) Debug.LogError("Losing Condition");
+        if (gameObject == winSortingBox && collision.gameObject.name.Contains(targetColor) && collision.gameObject.name.Contains(targetType)) dataMiner.SendMessage("PointTracker", "Correct");
+        else if (gameObject == winSortingBox && !collision.gameObject.name.Contains(targetColor) || !collision.gameObject.name.Contains(targetType)) dataMiner.SendMessage("PointTracker", "Mistake");
+        else if (gameObject != winSortingBox && !collision.gameObject.name.Contains(targetColor) || !collision.gameObject.name.Contains(targetType)) dataMiner.SendMessage("PointTracker", "Error");
+        if (collision.gameObject.name.Contains(losingType) && collision.gameObject.name.Contains(losingColor)) dataMiner.SendMessage("PointTracker", "Incorrect");
 
+    }
+
+    private void OnTriggerStay2D(Collider2D collision)
+    {
+        if(collision.gameObject.tag == "Object")
+        {
+
+        }
     }
 
     void SentenceMessageReceiver(string sentence)
