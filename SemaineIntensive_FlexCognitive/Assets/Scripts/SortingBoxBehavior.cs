@@ -34,13 +34,13 @@ public class SortingBoxBehavior : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        StateChecker(collision.gameObject);
+        //StateChecker(collision.gameObject);
 
-        if (collision.gameObject.name.Contains(losingType) && collision.gameObject.name.Contains(losingColor)) Debug.Log("You lost, nigguh");
-        else if (gameObject == winSortingBox && collision.gameObject.name.Contains(targetColor) && collision.gameObject.name.Contains(targetType)) Debug.Log("You got it");
-        else if (gameObject == winSortingBox && !collision.gameObject.name.Contains(targetColor)) Debug.Log("Yo, you wrong dude");
-        else if (gameObject != winSortingBox && !collision.gameObject.name.Contains(targetColor)) Debug.Log("Yo, GTFOutta here");
-        
+        if (gameObject == winSortingBox && collision.gameObject.name.Contains(targetColor) && collision.gameObject.name.Contains(targetType)) Debug.Log("You got it");
+        else if (gameObject == winSortingBox && !collision.gameObject.name.Contains(targetColor) || !collision.gameObject.name.Contains(targetType)) Debug.LogWarning("1st Degree Error");
+        else if (gameObject != winSortingBox && !collision.gameObject.name.Contains(targetColor) || !collision.gameObject.name.Contains(targetType)) Debug.LogWarning("2nd Degree Error");
+        if (collision.gameObject.name.Contains(losingType) && collision.gameObject.name.Contains(losingColor)) Debug.LogError("Losing Condition");
+
     }
 
     void SentenceMessageReceiver(string sentence)
@@ -51,19 +51,19 @@ public class SortingBoxBehavior : MonoBehaviour
             switch (sentence)
             {
                 case string a when a.Contains("Squares"): //byShape
-                    if (myState == State.Shape1) winSortingBox = gameObject; //Debug.Log(gameObject.name + " is the active GameObject");
+                    if (myState == State.Shape1) winSortingBox = gameObject;
                     targetType = "Square";
                     break;
                 case string a when a.Contains("Circles"): //byShape
-                    if (myState == State.Shape2) winSortingBox = gameObject; //Debug.Log(gameObject.name + " is the active GameObject");
+                    if (myState == State.Shape2) winSortingBox = gameObject;
                     targetType = "Circle";
                     break;
                 case string a when a.Contains("Numbers"): //byNumber
-                    if (myState == State.Number) winSortingBox = gameObject; //Debug.Log(gameObject.name + " is the active GameObject");
+                    if (myState == State.Number) winSortingBox = gameObject;
                     targetType = "Number";
                     break;
                 case string a when a.Contains("Letters"): //byLetter
-                    if (myState == State.Letter) winSortingBox = gameObject; //Debug.Log(gameObject.name + " is the active GameObject");
+                    if (myState == State.Letter) winSortingBox = gameObject;
                     targetType = "Letter";
                     break;
             }
@@ -113,21 +113,6 @@ public class SortingBoxBehavior : MonoBehaviour
                     break;
             }
         }
-
-        /* if(Trier) --> switch(where to clean) 
-         * case shape: 
-         *      if(byColor) 
-         *      else if(byShapeType) 
-         * case letter: 
-         *      if(byColor)
-         *      else()
-         * case: number
-         *      if()
-        *
-        * 
-        * 
-        * else if (laisser) --> 
-        */
     }
 
     private void StateChecker(GameObject collisionObject = null)

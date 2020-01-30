@@ -783,7 +783,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1101077468}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 19.05, y: -0.08, z: -11.71875}
+  m_LocalPosition: {x: 19, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -2418,6 +2418,21 @@ PrefabInstance:
       propertyPath: whereToSpawn
       value: 
       objectReference: {fileID: 1101077469}
+    - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
+        type: 3}
+      propertyPath: numberOfTargetToSpawns
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
+        type: 3}
+      propertyPath: numberOfAvoidToSpawn
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
+        type: 3}
+      propertyPath: numberOfRandomsToSpawn
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 4374346147724965183, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}
       propertyPath: m_LocalPosition.x
