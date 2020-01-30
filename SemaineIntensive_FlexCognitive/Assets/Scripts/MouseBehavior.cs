@@ -39,7 +39,7 @@ public class MouseBehavior : MonoBehaviour
                 target = hit.collider.gameObject;
             }
 
-            if (hit.collider == null) return;
+            if (!hit) return;
         }
 
         if (Input.GetMouseButtonUp(0)) target = null;

@@ -18,6 +18,9 @@ public class ObjectGenerator : MonoBehaviour
     int onStartSpawnRandoms;
     Object objectClass;
 
+    float randomSpawnTimer;
+    [SerializeField] float timeToSpawn;
+
     Vector2 spawnPosition;
     
     string targetType;
@@ -105,6 +108,9 @@ public class ObjectGenerator : MonoBehaviour
 
     private void AssignValues()
     {
+        targetObjectParameters.Clear();
+        avoidObjectParameters.Clear();
+
         switch (targetType)
         {
             case string a when a == "Square":
@@ -162,6 +168,7 @@ public class ObjectGenerator : MonoBehaviour
             spawnPosition = (Vector2)whereToSpawn.position + UnityEngine.Random.insideUnitCircle * 5;//new Vector2(Random.Range(-8, 8), Random.Range(-5, 5));
             GameObject objectToSpawn = Instantiate(objectPrefab, spawnPosition, Quaternion.identity, gameObject.transform);
             objectToSpawn.SendMessage("SetObjectParameters", targetObjectParameters);
+            objectToSpawn.name = objectToSpawn.name + " isTarget";
         }
 
         for (onStartSpawnAvoid = 0; onStartSpawnAvoid < numberOfAvoidToSpawn; onStartSpawnAvoid++)
@@ -171,11 +178,23 @@ public class ObjectGenerator : MonoBehaviour
             objectToSpawn.SendMessage("SetObjectParameters", avoidObjectParameters);
         }
 
-        for (onStartSpawnRandoms = 0; onStartSpawnRandoms < numberOfRandomsToSpawn; onStartSpawnRandoms++)
+        /*for (onStartSpawnRandoms = 0; onStartSpawnRandoms < numberOfRandomsToSpawn; onStartSpawnRandoms++)
         {
             spawnPosition = (Vector2)whereToSpawn.position + UnityEngine.Random.insideUnitCircle * 5;//new Vector2(Random.Range(-8, 8), Random.Range(-5, 5));
             GameObject objectToSpawn = Instantiate(objectPrefab, spawnPosition, Quaternion.identity, gameObject.transform);
             objectToSpawn.SendMessage("SpawnWithRandomParams");
+        }*/
+    }
+
+    void Update()
+    {
+        randomSpawnTimer += Time.deltaTime;
+        if (randomSpawnTimer > timeToSpawn)
+        {
+            spawnPosition = (Vector2)whereToSpawn.position + UnityEngine.Random.insideUnitCircle * 5;//new Vector2(Random.Range(-8, 8), Random.Range(-5, 5));
+            GameObject objectToSpawn = Instantiate(objectPrefab, spawnPosition, Quaternion.identity, gameObject.transform);
+            objectToSpawn.SendMessage("SpawnWithRandomParams");
+            randomSpawnTimer = 0f;
         }
     }
 }

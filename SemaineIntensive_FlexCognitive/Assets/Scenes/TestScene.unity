@@ -2421,7 +2421,7 @@ PrefabInstance:
     - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}
       propertyPath: numberOfTargetToSpawns
-      value: 3
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}
@@ -2432,6 +2432,11 @@ PrefabInstance:
         type: 3}
       propertyPath: numberOfRandomsToSpawn
       value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
+        type: 3}
+      propertyPath: timeToSpawn
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4374346147724965183, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}
