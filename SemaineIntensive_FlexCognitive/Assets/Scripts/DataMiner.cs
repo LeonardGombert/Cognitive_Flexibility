@@ -6,9 +6,18 @@ using UnityEngine;
 public class DataMiner : MonoBehaviour
 {
     [SerializeField] int playerScore;
+
+    [SerializeField] int correctPackagedObjects;
+    [SerializeField] int incorrectPackagedObjects;
+
+    [SerializeField] int correctDestroyedObjects;
+    [SerializeField] int incorrectDestroyedObjects;
+
+    [SerializeField] int failedPackageObjects;
+
     [SerializeField] List<float> playerTime = new List<float>();
-    [SerializeField] List<GameObject> destroyedObjects = new List<GameObject>();
-    [SerializeField] List<GameObject> wrongDestroyedObjects = new List<GameObject>();
+    //[SerializeField] List<GameObject> destroyedObjects = new List<GameObject>();
+    //[SerializeField] List<GameObject> wrongDestroyedObjects = new List<GameObject>();
 
     float timePassed;
     bool startTimer = false;
@@ -38,16 +47,16 @@ public class DataMiner : MonoBehaviour
         switch (pointResult)
         {
             case "Correct":
-                playerScore++;
+                correctPackagedObjects++;
                 break;
             case "Mistake":
-                playerScore--;
+                incorrectPackagedObjects--;
                 break;
             case "Error":
-                playerScore--;
+                incorrectPackagedObjects--;
                 break;
             case "Incorrect":
-                Debug.Log("That was a mistake");
+                failedPackageObjects--;
                 break;
         }
 
@@ -55,14 +64,22 @@ public class DataMiner : MonoBehaviour
     }
 
     void ObjectDestructionTracker(GameObject destroyed)
-    {     
-        if(destroyed.tag == "Destroy") destroyedObjects.Add(destroyed);
-        if(destroyed.tag == "Object") wrongDestroyedObjects.Add(destroyed);
+    {
+        if (destroyed.tag == "Destroy")
+        {
+            //destroyedObjects.Add(destroyed);
+            correctDestroyedObjects++;
+        }
+
+        if (destroyed.tag == "Object")
+        {
+            //wrongDestroyedObjects.Add(destroyed);
+            incorrectDestroyedObjects++;
+        }
     }
 
-
-    private void StatsTracker()
+    void StatsTracker()
     {
-        throw new NotImplementedException();
+        playerScore = correctPackagedObjects + correctDestroyedObjects + incorrectPackagedObjects + failedPackageObjects + incorrectDestroyedObjects;
     }
 }

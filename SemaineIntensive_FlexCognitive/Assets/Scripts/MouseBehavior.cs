@@ -35,7 +35,7 @@ public class MouseBehavior : MonoBehaviour
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             
-            if (hit.collider.tag == "Object")
+            if (hit.collider.tag == "Object" || hit.collider.tag == "Destroy")
             {
                 target = hit.collider.gameObject;
             }
@@ -47,13 +47,7 @@ public class MouseBehavior : MonoBehaviour
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
 
-            if (hit.collider.tag == "Object")
-            {
-                dataMiner.SendMessage("ObjectDestructionTracker", hit.collider.gameObject);
-                Destroy(hit.collider.gameObject);
-            }
-
-            if (hit.collider.tag == "Destroy")
+            if (hit.collider.tag == "Object" || hit.collider.tag == "Destroy")
             {
                 dataMiner.SendMessage("ObjectDestructionTracker", hit.collider.gameObject);
                 Destroy(hit.collider.gameObject);
