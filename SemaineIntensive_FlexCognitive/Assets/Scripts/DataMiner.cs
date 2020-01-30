@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -6,6 +7,8 @@ public class DataMiner : MonoBehaviour
 {
     [SerializeField] int playerScore;
     [SerializeField] List<float> playerTime = new List<float>();
+    [SerializeField] List<GameObject> destroyedObjects = new List<GameObject>();
+    [SerializeField] List<GameObject> wrongDestroyedObjects = new List<GameObject>();
 
     float timePassed;
     bool startTimer = false;
@@ -13,7 +16,7 @@ public class DataMiner : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+         
     }
 
     // Update is called once per frame
@@ -21,6 +24,8 @@ public class DataMiner : MonoBehaviour
     {
         if (startTimer) timePassed += Time.deltaTime;
         else return;
+
+        StatsTracker();
     }
 
     void PointTracker(string pointResult)
@@ -47,5 +52,17 @@ public class DataMiner : MonoBehaviour
         }
 
         timePassed = 0f;
+    }
+
+    void ObjectDestructionTracker(GameObject destroyed)
+    {     
+        if(destroyed.tag == "Destroy") destroyedObjects.Add(destroyed);
+        if(destroyed.tag == "Object") wrongDestroyedObjects.Add(destroyed);
+    }
+
+
+    private void StatsTracker()
+    {
+        throw new NotImplementedException();
     }
 }

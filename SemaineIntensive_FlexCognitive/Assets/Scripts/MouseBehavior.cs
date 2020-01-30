@@ -5,6 +5,7 @@ using UnityEngine;
 public class MouseBehavior : MonoBehaviour
 {
     GameObject target;
+    [SerializeField] GameObject dataMiner;
 
     // Start is called before the first frame update
     void Start()
@@ -33,7 +34,7 @@ public class MouseBehavior : MonoBehaviour
         if(Input.GetMouseButtonDown(0))
         {
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
-
+            
             if (hit.collider.tag == "Object")
             {
                 target = hit.collider.gameObject;
@@ -48,8 +49,17 @@ public class MouseBehavior : MonoBehaviour
 
             if (hit.collider.tag == "Object")
             {
+                dataMiner.SendMessage("ObjectDestructionTracker", hit.collider.gameObject);
                 Destroy(hit.collider.gameObject);
             }
+
+            if (hit.collider.tag == "Destroy")
+            {
+                dataMiner.SendMessage("ObjectDestructionTracker", hit.collider.gameObject);
+                Destroy(hit.collider.gameObject);
+            }
+
+            if (!hit) return;
         }
 
         if (Input.GetMouseButtonUp(0)) target = null;

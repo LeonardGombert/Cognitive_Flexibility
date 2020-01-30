@@ -12,9 +12,11 @@ public class ObjectGenerator : MonoBehaviour
     [SerializeField] Transform whereToSpawn;
     [SerializeField] int numberOfTargetToSpawns;
     [SerializeField] int numberOfAvoidToSpawn;
+    [SerializeField] int numberOfDestroyToSpawn;
     [SerializeField] int numberOfRandomsToSpawn;
     int onStartSpawnTarget;
     int onStartSpawnAvoid;
+    int onStartSpawnDestroy;
     int onStartSpawnRandoms;
     Object objectClass;
 
@@ -28,8 +30,16 @@ public class ObjectGenerator : MonoBehaviour
 
     string losingType;
     string losingColor;
+
+    string destroyType;
+    string destroyColor;
+
     [ShowInInspector] Dictionary<string, string> targetObjectParameters = new Dictionary<string, string>();
     [ShowInInspector] Dictionary<string, string> avoidObjectParameters = new Dictionary<string, string>();
+    [ShowInInspector] Dictionary<string, string> destroyObjectParameters = new Dictionary<string, string>();
+
+
+    [ShowInInspector] List<GameObject> currentSpawnedWave = new List<GameObject>();
 
     void Start()
     {
@@ -39,8 +49,14 @@ public class ObjectGenerator : MonoBehaviour
     // Update is called once per frame
     void SentenceMessageReceiver(string sentence)
     {
+        foreach (GameObject item in currentSpawnedWave)
+        {
+            Destroy(item);
+        }
+        currentSpawnedWave.Clear();
+
         //ACTION
-        if (sentence.Contains("Trier"))
+        if (sentence.Contains("Package"))
         {
             switch (sentence)
             {
@@ -72,7 +88,7 @@ public class ObjectGenerator : MonoBehaviour
             }
         }
 
-        else if (sentence.Contains("Laisser"))
+        else if (sentence.Contains("Leave"))
         {
             switch (sentence)
             {
@@ -100,6 +116,38 @@ public class ObjectGenerator : MonoBehaviour
                     break;
                 case string a when a.Contains("Blue"): //byNumber
                     losingColor = "Blue";
+                    break;
+            }
+        }
+
+        else if (sentence.Contains("Destroy"))
+        {
+            switch (sentence)
+            {
+                case string a when a.Contains("Squares"): //byShape
+                    destroyType = "Square";
+                    break;
+                case string a when a.Contains("Circles"): //byShape
+                    destroyType = "Circle";
+                    break;
+                case string a when a.Contains("Numbers"): //byNumber
+                    destroyType = "Number";
+                    break;
+                case string a when a.Contains("Letters"): //byLetter
+                    destroyType = "Letter";
+                    break;
+            }
+
+            switch (sentence)
+            {
+                case string a when a.Contains("Red"): //byShape
+                    destroyColor = "Red";
+                    break;
+                case string a when a.Contains("Green"): //byShape
+                    destroyColor = "Green";
+                    break;
+                case string a when a.Contains("Blue"): //byNumber
+                    destroyColor = "Blue";
                     break;
             }
             AssignValues();
@@ -158,6 +206,30 @@ public class ObjectGenerator : MonoBehaviour
                 else if (losingColor == "Blue") avoidObjectParameters.Add("Letter", "Blue");
                 break;
         }
+
+        switch (destroyType)
+        {
+            case string a when a == "Square":
+                if (destroyColor == "Red") destroyObjectParameters.Add("Square", "Red");
+                else if (destroyColor == "Green") destroyObjectParameters.Add("Square", "Green");
+                else if (destroyColor == "Blue") destroyObjectParameters.Add("Square", "Blue");
+                break;
+            case string a when a == "Circle":
+                if (destroyColor == "Red") destroyObjectParameters.Add("Circle", "Red");
+                else if (destroyColor == "Green") destroyObjectParameters.Add("Circle", "Green");
+                else if (destroyColor == "Blue") destroyObjectParameters.Add("Circle", "Blue");
+                break;
+            case string a when a == "Number":
+                if (destroyColor == "Red") destroyObjectParameters.Add("Number", "Red");
+                else if (destroyColor == "Green") destroyObjectParameters.Add("Number", "Green");
+                else if (destroyColor == "Blue") destroyObjectParameters.Add("Number", "Blue");
+                break;
+            case string a when a == "Letter":
+                if (destroyColor == "Red") destroyObjectParameters.Add("Letter", "Red");
+                else if (destroyColor == "Green") destroyObjectParameters.Add("Letter", "Green");
+                else if (destroyColor == "Blue") destroyObjectParameters.Add("Letter", "Blue");
+                break;
+        }
         SpawnObjects();
     }
 
@@ -169,6 +241,8 @@ public class ObjectGenerator : MonoBehaviour
             GameObject objectToSpawn = Instantiate(objectPrefab, spawnPosition, Quaternion.identity, gameObject.transform);
             objectToSpawn.SendMessage("SetObjectParameters", targetObjectParameters);
             objectToSpawn.name = objectToSpawn.name + " isTarget";
+
+            currentSpawnedWave.Add(objectToSpawn);
         }
 
         for (onStartSpawnAvoid = 0; onStartSpawnAvoid < numberOfAvoidToSpawn; onStartSpawnAvoid++)
@@ -176,6 +250,18 @@ public class ObjectGenerator : MonoBehaviour
             spawnPosition = (Vector2)whereToSpawn.position + UnityEngine.Random.insideUnitCircle * 5;//new Vector2(Random.Range(-8, 8), Random.Range(-5, 5));
             GameObject objectToSpawn = Instantiate(objectPrefab, spawnPosition, Quaternion.identity, gameObject.transform);
             objectToSpawn.SendMessage("SetObjectParameters", avoidObjectParameters);
+
+            currentSpawnedWave.Add(objectToSpawn);
+        }
+
+        for (onStartSpawnDestroy = 0; onStartSpawnDestroy < numberOfDestroyToSpawn; onStartSpawnDestroy++)
+        {
+            spawnPosition = (Vector2)whereToSpawn.position + UnityEngine.Random.insideUnitCircle * 5;//new Vector2(Random.Range(-8, 8), Random.Range(-5, 5));
+            GameObject objectToSpawn = Instantiate(objectPrefab, spawnPosition, Quaternion.identity, gameObject.transform);
+            objectToSpawn.SendMessage("SetObjectParameters", destroyObjectParameters);
+            objectToSpawn.tag = "Destroy";
+
+            currentSpawnedWave.Add(objectToSpawn);
         }
 
         for (onStartSpawnRandoms = 0; onStartSpawnRandoms < numberOfRandomsToSpawn; onStartSpawnRandoms++)
@@ -183,11 +269,13 @@ public class ObjectGenerator : MonoBehaviour
             spawnPosition = (Vector2)whereToSpawn.position + UnityEngine.Random.insideUnitCircle * 5;//new Vector2(Random.Range(-8, 8), Random.Range(-5, 5));
             GameObject objectToSpawn = Instantiate(objectPrefab, spawnPosition, Quaternion.identity, gameObject.transform);
             objectToSpawn.SendMessage("SpawnWithRandomParams");
+
+            currentSpawnedWave.Add(objectToSpawn);
         }
     }
 
     void Update()
-    {
+    {        /*
         randomSpawnTimer += Time.deltaTime;
         if (randomSpawnTimer > timeToSpawn)
         {
@@ -195,6 +283,6 @@ public class ObjectGenerator : MonoBehaviour
             GameObject objectToSpawn = Instantiate(objectPrefab, spawnPosition, Quaternion.identity, gameObject.transform);
             objectToSpawn.SendMessage("SpawnWithRandomParams");
             randomSpawnTimer = 0f;
-        }
+        }*/
     }
 }

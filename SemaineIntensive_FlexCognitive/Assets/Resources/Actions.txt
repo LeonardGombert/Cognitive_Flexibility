@@ -1,4 +1,5 @@
-Trier
-Laisser
+Package
+Leave
 Sortir
-Laisser
+Leave
+Destroy

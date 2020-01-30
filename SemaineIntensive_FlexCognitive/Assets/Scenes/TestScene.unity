@@ -172,6 +172,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerScore: 0
   playerTime: []
+  destroyedObjects: []
 --- !u!1 &446612046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,6 +1515,7 @@ MonoBehaviour:
   colorText: {fileID: 4900000, guid: 0b8cc3fac4026e741b772f8a2720c16d, type: 3}
   firstSentence: 0
   secondSentence: 1
+  thirdSentence: 4
   objectGenerator: {fileID: 310646484}
   sortingBoxes:
   - {fileID: 1255693527}
@@ -2474,12 +2476,12 @@ PrefabInstance:
     - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}
       propertyPath: numberOfTargetToSpawns
-      value: 2
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}
       propertyPath: numberOfAvoidToSpawn
-      value: 4
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}
@@ -2490,6 +2492,11 @@ PrefabInstance:
         type: 3}
       propertyPath: timeToSpawn
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
+        type: 3}
+      propertyPath: numberOfDestroyToSpawn
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4374346147724965183, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}
@@ -2560,6 +2567,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: _mouseBehavior
       objectReference: {fileID: 0}
+    - target: {fileID: 5589424844611192624, guid: 65bdf4578c0a43244bcd1cd9f73945c9,
+        type: 3}
+      propertyPath: dataMiner
+      value: 
+      objectReference: {fileID: 349685547}
     - target: {fileID: 5589424844611192625, guid: 65bdf4578c0a43244bcd1cd9f73945c9,
         type: 3}
       propertyPath: m_LocalPosition.x

@@ -45,16 +45,13 @@ public class SortingBoxBehavior : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if(collision.gameObject.tag == "Object")
-        {
 
-        }
     }
 
     void SentenceMessageReceiver(string sentence)
     {
         //ACTION
-        if(sentence.Contains("Trier"))
+        if(sentence.Contains("Package"))
         {
             switch (sentence)
             {
@@ -90,7 +87,7 @@ public class SortingBoxBehavior : MonoBehaviour
             }
         }
 
-        else if(sentence.Contains("Laisser"))
+        else if(sentence.Contains("Leave"))
         {
             switch (sentence)
             {
