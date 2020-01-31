@@ -48,10 +48,10 @@ public class DataMiner : MonoBehaviour
     [FoldoutGroup("PLAYER TIMES")] [SerializeField] float averageTimeToFirstReaction;
     [FoldoutGroup("TIMESTAMPS")] [SerializeField] List<float> playerFirstReactionTime = new List<float>();
     [FoldoutGroup("TIMESTAMPS")] [SerializeField] List<float> playerFirstReactionTimeArchive = new List<float>();
-    [FoldoutGroup("PERCENTAGES")] [SerializeField] List<float> adaptabilityPercentagesArchive = new List<float>();
     [FoldoutGroup("PERCENTAGES")] [Range(0, 100)] [SerializeField] float adaptabilityPercentage;
     [FoldoutGroup("PERCENTAGES")] [ShowInInspector] public static float numberOfPackageTargets;
     [FoldoutGroup("PERCENTAGES")] [ShowInInspector] public static float numberOfDestroyTargets;
+    [FoldoutGroup("PERCENTAGES")] [SerializeField] List<float> adaptabilityPercentagesArchive = new List<float>();
 
 
     float packagedTimePassed;
