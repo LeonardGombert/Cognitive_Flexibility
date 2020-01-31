@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public class Object : MonoBehaviour
 {
     enum Type {color, shape, number, letter};
-    enum Color {Red, Green, Blue}; enum Shape {Square, Circle}; enum Number {One, Two, Three}; enum Letters {A, B, C};
+    enum Color {Red, Green, Blue}; enum Shape {Square, Circle}; enum Number {Zero, One, Two, Three, Four, Five, Six, Seven, Eight, Nine}; enum Letters {A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z};
 
     [SerializeField] Type myType;
     [SerializeField] Color myColor;
@@ -89,14 +89,21 @@ public class Object : MonoBehaviour
                 gameObject.name = gameObject.name + " " + myShape.ToString();
                 break;
             case Type.number:
-                myNumber = (Number)UnityEngine.Random.Range(0, 3);
+                myNumber = (Number)UnityEngine.Random.Range(0, 11);
+                if (myNumber.ToString() == "Zero") valueText.text = "0";
                 if (myNumber.ToString() == "One") valueText.text = "1";
                 if (myNumber.ToString() == "Two") valueText.text = "2";
                 if (myNumber.ToString() == "Three") valueText.text = "3";
+                if (myNumber.ToString() == "Four") valueText.text = "4";
+                if (myNumber.ToString() == "Five") valueText.text = "5";
+                if (myNumber.ToString() == "Six") valueText.text = "6";
+                if (myNumber.ToString() == "Seven") valueText.text = "7";
+                if (myNumber.ToString() == "Eight") valueText.text = "8";
+                if (myNumber.ToString() == "Nine") valueText.text = "9";
                 gameObject.name = gameObject.name + " Number";
                 break;
             case Type.letter:
-                myLetter = (Letters)UnityEngine.Random.Range(0, 3);
+                myLetter = (Letters)UnityEngine.Random.Range(0, 27);
                 valueText.text = myLetter.ToString();
                 gameObject.name = gameObject.name + " Letter";
                 break;
@@ -164,14 +171,21 @@ public class Object : MonoBehaviour
                 gameObject.name = gameObject.name + " " + myShape.ToString();
                 break;
             case Type.number:
-                myNumber = (Number)UnityEngine.Random.Range(0, 3);
+                myNumber = (Number)UnityEngine.Random.Range(0, 11);
+                if (myNumber.ToString() == "Zero") valueText.text = "0";
                 if (myNumber.ToString() == "One") valueText.text = "1";
                 if (myNumber.ToString() == "Two") valueText.text = "2";
                 if (myNumber.ToString() == "Three") valueText.text = "3";
+                if (myNumber.ToString() == "Four") valueText.text = "4";
+                if (myNumber.ToString() == "Five") valueText.text = "5";
+                if (myNumber.ToString() == "Six") valueText.text = "6";
+                if (myNumber.ToString() == "Seven") valueText.text = "7";
+                if (myNumber.ToString() == "Eight") valueText.text = "8";
+                if (myNumber.ToString() == "Nine") valueText.text = "9";
                 gameObject.name = gameObject.name + " Number";
                 break;
             case Type.letter:
-                myLetter = (Letters)UnityEngine.Random.Range(0, 3);
+                myLetter = (Letters)UnityEngine.Random.Range(0, 27);
                 valueText.text = myLetter.ToString();
                 gameObject.name = gameObject.name + " Letter" ;
                 break;

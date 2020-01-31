@@ -15,12 +15,32 @@ public class DataMiner : MonoBehaviour
 
     [SerializeField] int failedPackageObjects;
 
-    [SerializeField] List<float> playerTime = new List<float>();
-    //[SerializeField] List<GameObject> destroyedObjects = new List<GameObject>();
-    //[SerializeField] List<GameObject> wrongDestroyedObjects = new List<GameObject>();
+    [SerializeField] int totalInteractions;
 
-    float timePassed;
-    bool startTimer = false;
+    [SerializeField] List<float> playerAllTimestamps = new List<float>();
+    [SerializeField] List<float> playerAllTimestampsArchive = new List<float>();
+
+    [SerializeField] List<float> playerCorrectInteractionsTimestamps = new List<float>();
+    [SerializeField] List<float> playerCorrectInteractionsTimestampsArchive = new List<float>();
+
+    [SerializeField] List<float> playerPackageTimestamps = new List<float>();
+    [SerializeField] List<float> playerDestroyTimestamps = new List<float>();
+
+    float packagedTimePassed;
+    float destroyTimePassed;
+
+    bool packageStartTimer = false;
+    bool destroyStartTimer = false;
+
+    float packageLap;
+    float destroyLap;
+
+    [SerializeField] float averageTimeBetweenAllActions;
+    [SerializeField] float averageTimeBetweenCorrectActions;
+    float _averageTimeBetweenCorrectActions;
+    float _averageTimeBetweenActions;
+    
+    float correctInteractionLap;
 
     // Start is called before the first frame update
     void Start()
@@ -31,44 +51,54 @@ public class DataMiner : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (startTimer) timePassed += Time.deltaTime;
-        else return;
-
+        if(packageStartTimer) packagedTimePassed += Time.deltaTime;
+        if(destroyStartTimer) destroyTimePassed += Time.deltaTime;
         StatsTracker();
     }
 
     void PointTracker(string pointResult)
     {
-        startTimer = true;
+        packageStartTimer = true;
 
-        float playerLap = timePassed;
-        playerTime.Add(playerLap);
+        packageLap = packagedTimePassed;
+        playerAllTimestamps.Add(packageLap);
+        playerPackageTimestamps.Add(packageLap);
 
         switch (pointResult)
         {
             case "Correct":
                 correctPackagedObjects++;
+                correctInteractionLap = packagedTimePassed;
+                playerCorrectInteractionsTimestamps.Add(correctInteractionLap);
                 break;
             case "Mistake":
-                incorrectPackagedObjects--;
+                incorrectPackagedObjects++;
                 break;
             case "Error":
-                incorrectPackagedObjects--;
+                incorrectPackagedObjects++;
                 break;
             case "Incorrect":
-                failedPackageObjects--;
+                failedPackageObjects++;
                 break;
         }
 
-        timePassed = 0f;
+        packagedTimePassed = 0f;
     }
 
     void ObjectDestructionTracker(GameObject destroyed)
     {
+        destroyStartTimer = true;
+
+        destroyLap = destroyTimePassed;
+        playerAllTimestamps.Add(destroyLap);
+        playerDestroyTimestamps.Add(destroyLap);
+
         if (destroyed.tag == "Destroy")
         {
             //destroyedObjects.Add(destroyed);
             correctDestroyedObjects++;
+            correctInteractionLap = destroyTimePassed;
+            playerCorrectInteractionsTimestamps.Add(correctInteractionLap);
         }
 
         if (destroyed.tag == "Object")
@@ -76,10 +106,32 @@ public class DataMiner : MonoBehaviour
             //wrongDestroyedObjects.Add(destroyed);
             incorrectDestroyedObjects++;
         }
+
+        destroyTimePassed = 0f;
     }
 
     void StatsTracker()
     {
-        playerScore = correctPackagedObjects + correctDestroyedObjects + incorrectPackagedObjects + failedPackageObjects + incorrectDestroyedObjects;
+        playerScore = correctPackagedObjects + correctDestroyedObjects - incorrectPackagedObjects - failedPackageObjects - incorrectDestroyedObjects;
+
+        foreach (float timeStamp in playerAllTimestamps)
+        {
+            _averageTimeBetweenActions += timeStamp;
+            playerAllTimestampsArchive.Add(timeStamp);
+            playerAllTimestamps.Remove(timeStamp);
+        } 
+
+        foreach (float timeStamp in playerCorrectInteractionsTimestamps)
+        {
+            _averageTimeBetweenCorrectActions += timeStamp;
+            playerCorrectInteractionsTimestampsArchive.Add(timeStamp);
+            playerCorrectInteractionsTimestamps.Remove(timeStamp);
+        }
+        
+        //AVERAGE IME FOR INTERACTIONS
+        averageTimeBetweenAllActions = _averageTimeBetweenActions/ playerAllTimestampsArchive.Count;
+        averageTimeBetweenCorrectActions = _averageTimeBetweenCorrectActions / playerCorrectInteractionsTimestampsArchive.Count;
+
+        totalInteractions = correctPackagedObjects + correctDestroyedObjects + incorrectPackagedObjects + failedPackageObjects + incorrectDestroyedObjects;
     }
 }

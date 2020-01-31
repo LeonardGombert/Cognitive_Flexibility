@@ -176,7 +176,15 @@ MonoBehaviour:
   correctDestroyedObjects: 0
   incorrectDestroyedObjects: 0
   failedPackageObjects: 0
-  playerTime: []
+  totalInteractions: 0
+  playerAllTimestamps: []
+  playerAllTimestampsArchive: []
+  playerCorrectInteractionsTimestamps: []
+  playerCorrectInteractionsTimestampsArchive: []
+  playerPackageTimestamps: []
+  playerDestroyTimestamps: []
+  averageTimeBetweenAllActions: 0
+  averageTimeBetweenCorrectActions: 0
 --- !u!1 &446612046
 GameObject:
   m_ObjectHideFlags: 0
@@ -2482,22 +2490,22 @@ PrefabInstance:
     - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}
       propertyPath: numberOfTargetToSpawns
-      value: 5
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}
       propertyPath: numberOfAvoidToSpawn
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
-        type: 3}
-      propertyPath: numberOfRandomsToSpawn
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}
+      propertyPath: numberOfRandomsToSpawn
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
+        type: 3}
       propertyPath: timeToSpawn
-      value: 0.75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}

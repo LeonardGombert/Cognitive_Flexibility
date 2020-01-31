@@ -36,10 +36,29 @@ public class SortingBoxBehavior : MonoBehaviour
     {
         //StateChecker(collision.gameObject);
 
-        if (gameObject == winSortingBox && collision.gameObject.name.Contains(targetColor) && collision.gameObject.name.Contains(targetType)) { dataMiner.SendMessage("PointTracker", "Correct"); Destroy(collision.gameObject); }
-        else if (gameObject == winSortingBox && !collision.gameObject.name.Contains(targetColor) || !collision.gameObject.name.Contains(targetType)) { dataMiner.SendMessage("PointTracker", "Mistake"); Destroy(collision.gameObject); }
-        else if (gameObject != winSortingBox && !collision.gameObject.name.Contains(targetColor) || !collision.gameObject.name.Contains(targetType)) { dataMiner.SendMessage("PointTracker", "Error"); Destroy(collision.gameObject); }
-        if (collision.gameObject.name.Contains(losingType) && collision.gameObject.name.Contains(losingColor)) { dataMiner.SendMessage("PointTracker", "Incorrect"); Destroy(collision.gameObject); }
+        if (gameObject == winSortingBox && collision.gameObject.name.Contains(targetColor) && collision.gameObject.name.Contains(targetType)) 
+        { 
+            dataMiner.SendMessage("PointTracker", "Correct"); 
+            Destroy(collision.gameObject); 
+        }
+
+        if (gameObject == winSortingBox && !collision.gameObject.name.Contains(targetColor) || !collision.gameObject.name.Contains(targetType))
+        { 
+            dataMiner.SendMessage("PointTracker", "Mistake");
+            //Destroy(collision.gameObject);
+        }
+
+        if (gameObject != winSortingBox && !collision.gameObject.name.Contains(targetColor) || !collision.gameObject.name.Contains(targetType)) 
+        {
+            dataMiner.SendMessage("PointTracker", "Error"); 
+            //Destroy(collision.gameObject); 
+        }
+
+        if (collision.gameObject.name.Contains(losingType) && collision.gameObject.name.Contains(losingColor)) 
+        { 
+            dataMiner.SendMessage("PointTracker", "Incorrect");
+            //Destroy(collision.gameObject);
+        }
     }
 
     private void OnTriggerStay2D(Collider2D collision)
