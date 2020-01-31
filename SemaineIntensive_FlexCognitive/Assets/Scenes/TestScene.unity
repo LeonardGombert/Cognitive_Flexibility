@@ -171,8 +171,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerScore: 0
+  correctPackagedObjects: 0
+  incorrectPackagedObjects: 0
+  correctDestroyedObjects: 0
+  incorrectDestroyedObjects: 0
+  failedPackageObjects: 0
   playerTime: []
-  destroyedObjects: []
 --- !u!1 &446612046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1522,6 +1526,8 @@ MonoBehaviour:
   - {fileID: 1255193078}
   - {fileID: 1045096531}
   - {fileID: 1266298897}
+  timeToGenerateNewSentence: 3
+  timePassedSinceLastGeneration: 0
 --- !u!4 &1390793732
 Transform:
   m_ObjectHideFlags: 0
@@ -2491,7 +2497,7 @@ PrefabInstance:
     - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}
       propertyPath: timeToSpawn
-      value: 2
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}

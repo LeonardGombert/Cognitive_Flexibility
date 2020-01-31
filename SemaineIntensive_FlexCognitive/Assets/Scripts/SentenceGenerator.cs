@@ -25,6 +25,9 @@ public class SentenceGenerator : MonoBehaviour
     [SerializeField] GameObject objectGenerator;
     [SerializeField] GameObject[] sortingBoxes;
 
+    [SerializeField] float timeToGenerateNewSentence;
+    [SerializeField] float timePassedSinceLastGeneration;
+
     private void Awake()
     {
         GenerateSentence();
@@ -41,6 +44,18 @@ public class SentenceGenerator : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Space))
             GenerateSentence();
+
+        CheckIfNewGeneration();
+        timePassedSinceLastGeneration += Time.deltaTime;
+    }
+
+    private void CheckIfNewGeneration()
+    {
+        if(timeToGenerateNewSentence < timePassedSinceLastGeneration)
+        {
+            GenerateSentence();
+            timePassedSinceLastGeneration = 0f;
+        }
     }
 
     private void GenerateSentence()
@@ -155,10 +170,11 @@ public class SentenceGenerator : MonoBehaviour
 
     private void SentenceDifferentiator(string whichSentence)
     {
-        if(whichSentence == "sentence2")
+        if (whichSentence == "sentence2")
         {
             if (sentence1.Replace("Package", "") == sentence2.Replace("Leave", ""))
             {
+                Debug.Log("changing sentence2");
                 while (sentence1.Replace("Package", "") == sentence2.Replace("Leave", ""))
                 {
                     type = typeLines[UnityEngine.Random.Range(0, 4)];
@@ -170,9 +186,21 @@ public class SentenceGenerator : MonoBehaviour
 
         if (whichSentence == "sentence3")
         {
-            if (sentence1.Replace("Package", "") == sentence3.Replace("Destroy", "") || sentence2.Replace("Leave", "") == sentence3.Replace("Destroy", ""))
+            if (sentence1.Replace("Package", "") == sentence3.Replace("Destroy", ""))
             {
-                while (sentence1.Replace("Package", "") == sentence3.Replace("Destroy", "") || sentence2.Replace("Leave", "") == sentence3.Replace("Destroy", ""))
+                Debug.Log("changing sentence3");
+                while (sentence1.Replace("Package", "") == sentence3.Replace("Destroy", ""))
+                {
+                    type = typeLines[UnityEngine.Random.Range(0, 4)];
+                    color = colorLines[UnityEngine.Random.Range(0, 3)];
+                    sentence3 = string.Format("{0} {1} {2}.", action, color, type);
+                }
+            }
+
+            if (sentence2.Replace("Leave", "") == sentence3.Replace("Destroy", ""))
+            {
+                Debug.Log("changing sentence34");
+                while (sentence2.Replace("Leave", "") == sentence3.Replace("Destroy", ""))
                 {
                     type = typeLines[UnityEngine.Random.Range(0, 4)];
                     color = colorLines[UnityEngine.Random.Range(0, 3)];
