@@ -10,17 +10,19 @@ public class ObjectGenerator : MonoBehaviour
 
     [SerializeField] GameObject objectPrefab;
     [SerializeField] Transform whereToSpawn;
+
     [SerializeField] int numberOfTargetToSpawns;
     [SerializeField] int numberOfAvoidToSpawn;
     [SerializeField] int numberOfDestroyToSpawn;
     [SerializeField] int numberOfRandomsToSpawn;
+
     int onStartSpawnTarget;
     int onStartSpawnAvoid;
     int onStartSpawnDestroy;
-    int onStartSpawnRandoms;
-    Object objectClass;
 
-    float randomSpawnTimer;
+    int onStartSpawnRandoms;
+
+    [SerializeField] float spawnTimerForRandoms;
     [SerializeField] float timeToSpawn;
 
     Vector2 spawnPosition;
@@ -43,7 +45,7 @@ public class ObjectGenerator : MonoBehaviour
 
     void Start()
     {
-        objectClass = objectPrefab.GetComponent<Object>();
+
     }
     
     // Update is called once per frame
@@ -285,12 +287,13 @@ public class ObjectGenerator : MonoBehaviour
 
     private void ContinuousSpawning()
     {
-        randomSpawnTimer += Time.deltaTime;
-        if (randomSpawnTimer > timeToSpawn)
+        spawnTimerForRandoms += Time.deltaTime;
+        if (spawnTimerForRandoms > timeToSpawn)
         {
             spawnPosition = (Vector2)whereToSpawn.position + UnityEngine.Random.insideUnitCircle * 5;//new Vector2(Random.Range(-8, 8), Random.Range(-5, 5));
             GameObject objectToSpawn = Instantiate(objectPrefab, spawnPosition, Quaternion.identity, gameObject.transform);
-            
+            currentSpawnedWave.Add(objectToSpawn);
+
             float whichTypeToSpawn = UnityEngine.Random.Range(0, 4);
 
             if (whichTypeToSpawn == 0) objectToSpawn.SendMessage("SetObjectParameters", targetObjectParameters);
@@ -298,7 +301,7 @@ public class ObjectGenerator : MonoBehaviour
             if (whichTypeToSpawn == 2) objectToSpawn.SendMessage("SetObjectParameters", avoidObjectParameters);
             if (whichTypeToSpawn == 3) objectToSpawn.SendMessage("SpawnWithRandomParams");
 
-            randomSpawnTimer = 0f;
+            spawnTimerForRandoms = 0f;
         }
     }
 }

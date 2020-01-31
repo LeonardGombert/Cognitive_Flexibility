@@ -7,6 +7,8 @@ public class MouseBehavior : MonoBehaviour
     GameObject target;
     [SerializeField] GameObject dataMiner;
 
+    public static bool isInteracting;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +35,7 @@ public class MouseBehavior : MonoBehaviour
     {
         if(Input.GetMouseButtonDown(0))
         {
+            isInteracting = true;
             RaycastHit2D hit = Physics2D.Raycast(Camera.main.ScreenToWorldPoint(Input.mousePosition), Vector2.zero);
             
             if (hit.collider.tag == "Object" || hit.collider.tag == "Destroy")
@@ -56,6 +59,10 @@ public class MouseBehavior : MonoBehaviour
             if (!hit) return;
         }
 
-        if (Input.GetMouseButtonUp(0)) target = null;
+        if (Input.GetMouseButtonUp(0)) 
+        {
+            target = null;
+            isInteracting = false;
+        }
     }
 }

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using UnityEditor;
+using System.Reflection;
 
 public class SentenceGenerator : MonoBehaviour
 {
@@ -51,8 +53,9 @@ public class SentenceGenerator : MonoBehaviour
 
     private void CheckIfNewGeneration()
     {
-        if(timeToGenerateNewSentence < timePassedSinceLastGeneration)
+        if(timeToGenerateNewSentence < timePassedSinceLastGeneration && !MouseBehavior.isInteracting)
         {
+            Utils.ClearLogConsole();
             GenerateSentence();
             timePassedSinceLastGeneration = 0f;
         }
@@ -174,7 +177,6 @@ public class SentenceGenerator : MonoBehaviour
         {
             if (sentence1.Replace("Package", "") == sentence2.Replace("Leave", ""))
             {
-                Debug.Log("changing sentence2");
                 while (sentence1.Replace("Package", "") == sentence2.Replace("Leave", ""))
                 {
                     type = typeLines[UnityEngine.Random.Range(0, 4)];
@@ -188,7 +190,6 @@ public class SentenceGenerator : MonoBehaviour
         {
             if (sentence1.Replace("Package", "") == sentence3.Replace("Destroy", ""))
             {
-                Debug.Log("changing sentence3");
                 while (sentence1.Replace("Package", "") == sentence3.Replace("Destroy", ""))
                 {
                     type = typeLines[UnityEngine.Random.Range(0, 4)];
@@ -199,7 +200,6 @@ public class SentenceGenerator : MonoBehaviour
 
             if (sentence2.Replace("Leave", "") == sentence3.Replace("Destroy", ""))
             {
-                Debug.Log("changing sentence34");
                 while (sentence2.Replace("Leave", "") == sentence3.Replace("Destroy", ""))
                 {
                     type = typeLines[UnityEngine.Random.Range(0, 4)];
@@ -218,5 +218,27 @@ public class SentenceGenerator : MonoBehaviour
         {
             sortingBox.SendMessage("SentenceMessageReceiver", sentenceToRead);
         }
+    }
+}
+public static class Utils
+{
+    static MethodInfo _clearConsoleMethod;
+    static MethodInfo clearConsoleMethod
+    {
+        get
+        {
+            if (_clearConsoleMethod == null)
+            {
+                Assembly assembly = Assembly.GetAssembly(typeof(SceneView));
+                Type logEntries = assembly.GetType("UnityEditor.LogEntries");
+                _clearConsoleMethod = logEntries.GetMethod("Clear");
+            }
+            return _clearConsoleMethod;
+        }
+    }
+
+    public static void ClearLogConsole()
+    {
+        clearConsoleMethod.Invoke(new object(), null);
     }
 }

@@ -1526,7 +1526,7 @@ MonoBehaviour:
   - {fileID: 1255193078}
   - {fileID: 1045096531}
   - {fileID: 1266298897}
-  timeToGenerateNewSentence: 3
+  timeToGenerateNewSentence: 10
   timePassedSinceLastGeneration: 0
 --- !u!4 &1390793732
 Transform:
@@ -2497,7 +2497,7 @@ PrefabInstance:
     - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}
       propertyPath: timeToSpawn
-      value: 1
+      value: 0.75
       objectReference: {fileID: 0}
     - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}
