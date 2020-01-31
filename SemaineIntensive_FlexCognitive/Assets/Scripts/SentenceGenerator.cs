@@ -26,6 +26,7 @@ public class SentenceGenerator : MonoBehaviour
 
     [SerializeField] GameObject objectGenerator;
     [SerializeField] GameObject[] sortingBoxes;
+    [SerializeField] GameObject dataMiner;
 
     [SerializeField] float timeToGenerateNewSentence;
     [SerializeField] float timePassedSinceLastGeneration;
@@ -63,6 +64,7 @@ public class SentenceGenerator : MonoBehaviour
 
     private void GenerateSentence()
     {
+        dataMiner.SendMessage("NewCycle");
         if (actionText != null && typeText != null && colorText != null)
         {
             actionLines = (actionText.text.Split('\n'));

@@ -171,20 +171,25 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerScore: 0
-  correctPackagedObjects: 0
-  incorrectPackagedObjects: 0
-  correctDestroyedObjects: 0
-  incorrectDestroyedObjects: 0
-  failedPackageObjects: 0
   totalInteractions: 0
-  playerAllTimestamps: []
+  totalInteractionsInCycle: 0
+  correctPackagedObjects: 0
+  correctPackagedObjectsInCycle: 0
+  incorrectPackagedObjects: 0
+  failedPackageObjects: 0
+  correctDestroyedObjects: 0
+  correctDestroyedObjectsInCycle: 0
+  incorrectDestroyedObjects: 0
   playerAllTimestampsArchive: []
-  playerCorrectInteractionsTimestamps: []
+  playerFirstReactionTime: []
+  playerFirstReactionTimeArchive: []
   playerCorrectInteractionsTimestampsArchive: []
-  playerPackageTimestamps: []
-  playerDestroyTimestamps: []
-  averageTimeBetweenAllActions: 0
-  averageTimeBetweenCorrectActions: 0
+  lastTimeToFirstReaction: 0
+  averageTimeToFirstReaction: 0
+  averageTimeAllActions: 0
+  averageTimeCorrectActions: 0
+  percentageOfPackaged: 0
+  percentageOfDestroyed: 0
 --- !u!1 &446612046
 GameObject:
   m_ObjectHideFlags: 0
@@ -1534,6 +1539,7 @@ MonoBehaviour:
   - {fileID: 1255193078}
   - {fileID: 1045096531}
   - {fileID: 1266298897}
+  dataMiner: {fileID: 349685547}
   timeToGenerateNewSentence: 10
   timePassedSinceLastGeneration: 0
 --- !u!4 &1390793732
@@ -2512,6 +2518,11 @@ PrefabInstance:
       propertyPath: numberOfDestroyToSpawn
       value: 5
       objectReference: {fileID: 0}
+    - target: {fileID: 4374346147724965182, guid: 3257865918f873a439ddbdefd6438f5f,
+        type: 3}
+      propertyPath: dataMiner
+      value: 
+      objectReference: {fileID: 349685547}
     - target: {fileID: 4374346147724965183, guid: 3257865918f873a439ddbdefd6438f5f,
         type: 3}
       propertyPath: m_LocalPosition.x

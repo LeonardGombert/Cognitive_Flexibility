@@ -9,6 +9,7 @@ public class ObjectGenerator : MonoBehaviour
     // Start is called before the first frame update
 
     [SerializeField] GameObject objectPrefab;
+    [SerializeField] GameObject dataMiner;
     [SerializeField] Transform whereToSpawn;
 
     [SerializeField] int numberOfTargetToSpawns;
@@ -22,7 +23,7 @@ public class ObjectGenerator : MonoBehaviour
 
     int onStartSpawnRandoms;
 
-    [SerializeField] float spawnTimerForRandoms;
+    float spawnTimerForRandoms;
     [SerializeField] float timeToSpawn;
 
     Vector2 spawnPosition;
@@ -42,7 +43,7 @@ public class ObjectGenerator : MonoBehaviour
 
 
     [ShowInInspector] List<GameObject> currentSpawnedWave = new List<GameObject>();
-
+    
     void Start()
     {
 
@@ -233,7 +234,8 @@ public class ObjectGenerator : MonoBehaviour
                 else if (destroyColor == "Blue") destroyObjectParameters.Add("Letter", "Blue");
                 break;
         }
-
+        DataMiner.numberOfPackageTargets = 0;
+        DataMiner.numberOfDestroyTargets = 0;
         SpawnObjects();
     }
 
@@ -247,6 +249,7 @@ public class ObjectGenerator : MonoBehaviour
             objectToSpawn.name = objectToSpawn.name + " isTarget";
 
             currentSpawnedWave.Add(objectToSpawn);
+            DataMiner.numberOfPackageTargets++;
         }
 
         for (onStartSpawnAvoid = 0; onStartSpawnAvoid < numberOfAvoidToSpawn; onStartSpawnAvoid++)
@@ -268,6 +271,7 @@ public class ObjectGenerator : MonoBehaviour
             objectToSpawn.tag = "Destroy";
 
             currentSpawnedWave.Add(objectToSpawn);
+            DataMiner.numberOfDestroyTargets++;
         }
 
         /*for (onStartSpawnRandoms = 0; onStartSpawnRandoms < numberOfRandomsToSpawn; onStartSpawnRandoms++)
@@ -296,9 +300,23 @@ public class ObjectGenerator : MonoBehaviour
 
             float whichTypeToSpawn = UnityEngine.Random.Range(0, 4);
 
-            if (whichTypeToSpawn == 0) objectToSpawn.SendMessage("SetObjectParameters", targetObjectParameters);
-            if (whichTypeToSpawn == 1) objectToSpawn.SendMessage("SetObjectParameters", avoidObjectParameters);
-            if (whichTypeToSpawn == 2) objectToSpawn.SendMessage("SetObjectParameters", avoidObjectParameters);
+            if (whichTypeToSpawn == 0)
+            {
+                objectToSpawn.SendMessage("SetObjectParameters", targetObjectParameters);
+                DataMiner.numberOfPackageTargets++;
+            }
+
+            if (whichTypeToSpawn == 1)
+            {
+                objectToSpawn.SendMessage("SetObjectParameters", avoidObjectParameters);
+            }
+
+            if (whichTypeToSpawn == 2)
+            {
+                objectToSpawn.SendMessage("SetObjectParameters", destroyObjectParameters);
+                DataMiner.numberOfDestroyTargets++;
+            }
+
             if (whichTypeToSpawn == 3) objectToSpawn.SendMessage("SpawnWithRandomParams");
 
             spawnTimerForRandoms = 0f;

@@ -60,12 +60,7 @@ public class SortingBoxBehavior : MonoBehaviour
             //Destroy(collision.gameObject);
         }
     }
-
-    private void OnTriggerStay2D(Collider2D collision)
-    {
-
-    }
-
+    
     void SentenceMessageReceiver(string sentence)
     {
         //ACTION
