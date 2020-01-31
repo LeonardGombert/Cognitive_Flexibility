@@ -87,8 +87,9 @@ public class SentenceGenerator : MonoBehaviour
 
             type = typeLines[UnityEngine.Random.Range(0, 4)];
             color = colorLines[UnityEngine.Random.Range(0, 3)];
-            sentence3 = string.Format("{0} {1} {2}.", action, color, type);
-
+            //sentence3 = string.Format("{0} {1} {2}.", action, color, type);
+            sentence3 = sentence1;
+            sentence3 = sentence3.Replace("Package", "Destroy");
             SentenceDifferentiator("sentence3");
 
             SentenceToGeneration(sentence1);
@@ -98,7 +99,6 @@ public class SentenceGenerator : MonoBehaviour
             Debug.Log(sentence1);
             Debug.Log(sentence2);
             Debug.Log(sentence3);
-            //GetComponent<TextMesh>().text = dialog;
         }
     }
 
