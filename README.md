@@ -1,1 +1,2 @@
-# Flexibilit-_Cognitive
+# Cognitive_Flexibility
+Workshop semaine intensive w/ Luc Verdier
